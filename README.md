@@ -13,7 +13,7 @@ snail's height exceeds 6 feet? (A day consists of a period of sunlight followed 
 darkness.) As you can see from the following table, the snail leaves the well during the third
 day.
 
-| Day | Initial Height | Distance Climbed | Hight After Climbing | Height After Sliding |
+| Day | Initial Height | Distance Climbed | Height After Climbing | Height After Sliding |
 |-----|----------------|------------------|----------------------|----------------------|
 | 1   | 0'             | 3'               | 3'                   | 2'                   |
 | 2   | 2'             | 2.7'             | 4.7'                 | 3.7'                 |
