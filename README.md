@@ -23,3 +23,12 @@ Your job is to solve this problem in general. Depending on the parameters of the
 snail will eventually either leave the well or slide back to the bottom of the well. (In other words,
 the snail's height will exceed the height of the well or become negative.) You must find out
 which happens first and on what day.
+
+
+### Installation
+
+`npm install`
+
+### Run Server
+
+`npm run start`
