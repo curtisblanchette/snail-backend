@@ -1,6 +1,6 @@
 'use strict';
 
-const resultService = require('../services/resultService');
+const resultService = require('../services/result-service');
 
 /**
  * Serve the API version on baseURL
@@ -12,22 +12,22 @@ exports.getRoute = (req, res) => {
 };
 
 /**
- * Passes the request body to resultService to perform computation and persistence.
+ * Passes the request body to resultService to perform computation and awaits result before persisting.
  * @param req - request
  * @param res - response
  * @status 200 - call succeeded
  * @status 500 - call failed
  */
-exports.postResults = (req, res) => {
-  // Additional Points: save all calls to a mongoDB table
-  resultService.computeClimb(req).then((result) => {
-    resultService.persistResults(result).then(()=> {
-      res.status(200);
-      res.json(result);
-    }, (err) => {
-      res.status(500);
-      res.json({error: err});
-    });
+exports.postResults = async (req, res) => {
+
+  const result = await resultService.computeClimb(req.body);
+
+  resultService.persistResults(result).then((out)=> {
+    res.status(200);
+    res.json(out);
+  }, (err) => {
+    res.status(500);
+    res.json({error: err});
   });
 };
 
