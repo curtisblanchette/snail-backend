@@ -1,6 +1,6 @@
 'use strict';
 
-const logController = require('../controllers/log-controller');
+const logController = require('../controllers/log.controller');
 
 module.exports = function (app) {
 

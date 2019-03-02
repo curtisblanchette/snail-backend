@@ -1,6 +1,6 @@
 'use strict';
 
-const logService = require('../services/logService');
+const logService = require('../services/log.service');
 
 /**
  * Middleware to log request data to new table

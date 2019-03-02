@@ -1,6 +1,6 @@
 'use strict';
 
-const logService = require('../services/log-service');
+const logService = require('../services/log.service');
 
 /**
  * Log request

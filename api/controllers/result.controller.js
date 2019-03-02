@@ -1,6 +1,6 @@
 'use strict';
 
-const resultService = require('../services/resultService');
+const resultService = require('../services/result.service');
 
 /**
  * Serve the API version on baseURL

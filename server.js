@@ -1,10 +1,12 @@
-const express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000,
-  mongoose = require('mongoose'),
-  ResultModel = require('./api/models/resultModel'), // model must be loaded here
-  LogModel = require('./api/models/logModel'),
-  bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+const mongoose = require('mongoose');
+const ResultModel = require('./api/models/result.model'); // model must be loaded here
+const LogModel = require('./api/models/log.model');
+const bodyParser = require('body-parser');
+const resultRoutes = require('./api/routes/result.routes');
+const logRoutes = require('./api/routes/log.routes');
 
 // mongoose instance connection
 mongoose.Promise = global.Promise;
@@ -16,12 +18,14 @@ mongoose.connect('mongodb://localhost/SnailDB', { useNewUrlParser: true }).then(
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-// import and register routes
-const resultRoutes = require('./api/routes/resultRoutes');
+// register routes
 resultRoutes(app);
-
-const logRoutes = require('./api/routes/logRoutes');
 logRoutes(app);
 
 app.listen(port);

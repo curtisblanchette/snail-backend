@@ -1,6 +1,6 @@
 'use strict';
-const mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 /**
  * Defines the Mongoose Result Schema per requirements
