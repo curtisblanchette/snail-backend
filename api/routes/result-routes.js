@@ -1,7 +1,7 @@
 'use strict';
 
 const interceptors = require('../middleware/interceptors');
-const controller = require('../controllers/resultController');
+const controller = require('../controllers/result-controller');
 
 module.exports = function (app) {
 
