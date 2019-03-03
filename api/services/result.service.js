@@ -56,19 +56,15 @@ exports.computeClimb = (body) => {
       }
       return x;
     }
-
     function getHeightAfterClimbing(_initialHeight, _distanceClimbed) {
       return _initialHeight + _distanceClimbed;
     }
-
     function getInitialHeight(_heightAfterClimbing) {
       return _heightAfterClimbing - params.nightlySlide;
     }
-
     function hasReachedTop() {
       return heightAfterClimbing > params.wellHeight;
     }
-
     function hasFailed() {
       return Math.sign(heightAfterSliding) === -1 || heightAfterClimbing <= 0;
     }
@@ -108,19 +104,20 @@ exports.getResults = () => {
   });
 };
 
+/**
+ * Aggregate data for monitoring averages ( ie. successRate, daysToComplete, distanceClimbed )
+ * @returns {Promise}
+ */
 exports.aggregateResults = () => {
   return new Promise((resolve, reject) => {
     ResultModel.find({}, 'result distanceClimbed daysToComplete', (err, results) => {
       if (err) {
         reject(err);
       }
-
-      const data = {
+      resolve({
         successRate: getSuccessRate(results),
         averageTotalDistanceClimbed: getAverageTotalDistance(results)
-      };
-
-      resolve(data);
+      });
     });
 
     function getSuccessRate(data) {
@@ -131,7 +128,10 @@ exports.aggregateResults = () => {
         item.result.includes('Success') ? success++ : failure++;
       });
 
-      return { success: success, failure: failure }
+      return {
+        success: success,
+        failure: failure
+      }
     }
 
     function getAverageTotalDistance(data) {

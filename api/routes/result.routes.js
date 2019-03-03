@@ -14,6 +14,6 @@ module.exports = function (app) {
     .post(interceptors.callLogger, controller.postResults);
 
   app.route('/results/aggregate')
-    .get(interceptors.callLogger, controller.aggregateResults);
+    .get(controller.aggregateResults);
 
 };
