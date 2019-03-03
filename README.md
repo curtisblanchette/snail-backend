@@ -38,8 +38,8 @@ which happens first and on what day.
 `GET /results` - get all snail results items
 
 `POST /results` - save a new result item
-`
-// example POST body
+
+`// example POST body
 {
  "wellHeight": 6,
  "initialClimb": 3,
