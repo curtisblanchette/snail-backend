@@ -24,7 +24,6 @@ snail will eventually either leave the well or slide back to the bottom of the w
 the snail's height will exceed the height of the well or become negative.) You must find out
 which happens first and on what day.
 
-
 ### Installation
 
 `npm install`
@@ -32,3 +31,25 @@ which happens first and on what day.
 ### Run Server
 
 `npm run start`
+
+### Documentation
+
+#### Results API
+`GET /results` - get all snail results items
+
+`POST /results` - save a new result item
+
+`// example POST body
+{
+ "wellHeight": 6,
+ "initialClimb": 3,
+ "nightlySlide": 1,
+ "fatigue": 10
+}`
+
+`GET /results/aggregate` - get aggregated metrics report
+
+#### Logs API
+`GET /logs` - get all request logs
+
+`POST /logs` - save a new request item
