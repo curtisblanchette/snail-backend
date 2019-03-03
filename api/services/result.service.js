@@ -1,7 +1,8 @@
 'use strict';
 
-const mongoose = require('mongoose'),
-  ResultModel = mongoose.model('Result');
+const mongoose = require('mongoose');
+const ResultModel = mongoose.model('Result');
+const lodash = require('lodash');
 
 /**
  * Computes the request parameters to solve snail problem.
@@ -12,11 +13,14 @@ exports.computeClimb = (body) => {
   return new Promise((resolve, reject) => {
 
     const params = {
+      time: new Date().toISOString(),
       wellHeight: body.wellHeight,
       initialClimb: body.initialClimb,
       nightlySlide: body.nightlySlide,
       fatigue: body.fatigue,
-      result: null
+      result: null,
+      distanceClimbed: null,
+      daysToComplete: null
     };
 
     let day = 0;
@@ -30,7 +34,11 @@ exports.computeClimb = (body) => {
       heightAfterClimbing = getHeightAfterClimbing(initialHeight, distanceClimbed);
       initialHeight =	getInitialHeight(heightAfterClimbing);
       heightAfterSliding = initialHeight;
+
       day++;
+      params.daysToComplete = day;
+      params.distanceClimbed += distanceClimbed;
+
     } while(!hasReachedTop() && !hasFailed());
 
     if (hasFailed()) {
@@ -100,4 +108,41 @@ exports.getResults = () => {
   });
 };
 
+exports.aggregateResults = () => {
+  return new Promise((resolve, reject) => {
+    ResultModel.find({}, 'result distanceClimbed daysToComplete', (err, results) => {
+      if (err) {
+        reject(err);
+      }
 
+      const data = {
+        successRate: getSuccessRate(results),
+        averageTotalDistanceClimbed: getAverageTotalDistance(results)
+      };
+
+      resolve(data);
+    });
+
+    function getSuccessRate(data) {
+      let success = 0;
+      let failure = 0;
+
+      lodash.each(data, (item) => {
+        item.result.includes('Success') ? success++ : failure++;
+      });
+
+      return { success: success, failure: failure }
+    }
+
+    function getAverageTotalDistance(data) {
+      let distanceClimbed = 0;
+
+      lodash.each(data, (item) => {
+        console.log(item.toObject().distanceClimbed);
+        distanceClimbed += item.toObject().distanceClimbed;
+      });
+
+      return distanceClimbed / data.length;
+    }
+  });
+};
