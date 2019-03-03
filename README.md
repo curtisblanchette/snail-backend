@@ -35,7 +35,7 @@ which happens first and on what day.
 ### Documentation
 
 #### Results API
-`GET /results` - get all snail results items
+`GET /results` - get all snail results items \n
 `POST /results` - save a new result item
 `GET /results/aggregate` - get aggregated metrics report
 
