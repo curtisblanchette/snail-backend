@@ -4,9 +4,11 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const ResultModel = require('./api/models/result.model'); // model must be loaded here
 const LogModel = require('./api/models/log.model');
+const UserModel = require('./api/models/user.model');
 const bodyParser = require('body-parser');
 const resultRoutes = require('./api/routes/result.routes');
 const logRoutes = require('./api/routes/log.routes');
+const userRoutes = require('./api/routes/user.routes');
 
 // mongoose instance connection
 mongoose.Promise = global.Promise;
@@ -27,6 +29,7 @@ app.use((req, res, next) => {
 // register routes
 resultRoutes(app);
 logRoutes(app);
+userRoutes(app);
 
 app.listen(port);
 
