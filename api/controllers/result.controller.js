@@ -39,9 +39,26 @@ exports.postResults = async (req, res) => {
  * @status 500 - call failed
  */
 exports.getResults = (req, res) => {
-  resultService.getResults().then(result => {
+  resultService.getResults().then(results => {
     res.status(200);
-    res.json(result);
+    res.json(results);
+  }, (err) => {
+    res.status(500);
+    res.json({error: err});
+  });
+};
+
+/**
+ * Aggregate Result Data
+ * @param req - request
+ * @param res - response
+ * @status 200 - call succeeded
+ * @status 500 - call failed
+ */
+exports.aggregateResults = (req, res) => {
+  resultService.aggregateResults().then(results => {
+    res.status(200);
+    res.json(results);
   }, (err) => {
     res.status(500);
     res.json({error: err});
