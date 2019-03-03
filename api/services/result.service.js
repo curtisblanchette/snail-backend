@@ -138,7 +138,6 @@ exports.aggregateResults = () => {
       let distanceClimbed = 0;
 
       lodash.each(data, (item) => {
-        console.log(item.toObject().distanceClimbed);
         distanceClimbed += item.toObject().distanceClimbed;
       });
 
