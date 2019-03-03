@@ -1,5 +1,5 @@
 # snail-backend
-Backend RESTful API for Snail problem
+Backend RESTful API to solve Snail problem and provide metrics
 
 
 ## Problem 
