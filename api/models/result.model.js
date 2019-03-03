@@ -19,7 +19,7 @@ const Schema = mongoose.Schema;
 const ResultSchema = new Schema({
   time: {
     type: Date,
-    default: new Date()
+    default: new Date().toISOString()
   },
   wellHeight: {
     type: mongoose.Schema.Types.Decimal,
@@ -37,10 +37,10 @@ const ResultSchema = new Schema({
     type: mongoose.Schema.Types.Decimal,
     default: 0
   },
-  result: {
-    type: mongoose.Schema.Types.String,
-    default: 'Hope he made it...'
-  }
+  result: mongoose.Schema.Types.String,
+  distanceClimbed: mongoose.Schema.Types.Decimal,
+  daysToComplete: Number
+
 });
 
 module.exports = mongoose.model('Result', ResultSchema);
