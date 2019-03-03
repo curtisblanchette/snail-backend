@@ -38,6 +38,14 @@ which happens first and on what day.
 `GET /results` - get all snail results items
 
 `POST /results` - save a new result item
+`
+// example POST body
+{
+ "wellHeight": 6,
+ "initialClimb": 3,
+ "nightlySlide": 1,
+ "fatigue": 10
+}`
 
 `GET /results/aggregate` - get aggregated metrics report
 
