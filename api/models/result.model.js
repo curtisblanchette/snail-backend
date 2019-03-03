@@ -38,9 +38,8 @@ const ResultSchema = new Schema({
     default: 0
   },
   result: mongoose.Schema.Types.String,
-  distanceClimbed: mongoose.Schema.Types.Decimal,
+  distanceClimbed: Number,
   daysToComplete: Number
-
 });
 
 module.exports = mongoose.model('Result', ResultSchema);

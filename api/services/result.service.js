@@ -116,7 +116,8 @@ exports.aggregateResults = () => {
       }
       resolve({
         successRate: getSuccessRate(results),
-        averageTotalDistanceClimbed: getAverageTotalDistance(results)
+        averageTotalDistanceClimbed: getAverageTotalDistance(results),
+        averageTime: getAverageTimesInDays(results)
       });
     });
 
@@ -131,17 +132,39 @@ exports.aggregateResults = () => {
       return {
         success: success,
         failure: failure
-      }
+      };
     }
 
     function getAverageTotalDistance(data) {
       let distanceClimbed = 0;
 
       lodash.each(data, (item) => {
-        distanceClimbed += item.toObject().distanceClimbed;
+        distanceClimbed += item.distanceClimbed;
       });
 
       return distanceClimbed / data.length;
+    }
+
+    function getAverageTimesInDays(data) {
+      let totalSuccessDays = 0;
+      let totalFailureDays = 0;
+      let successCount = 0;
+      let failureCount = 0;
+
+      lodash.each(data, (item) => {
+        if (item.result.includes('Success')) {
+          successCount++;
+          totalSuccessDays += item.daysToComplete;
+        }
+        if (item.result.includes('Failure')) {
+          failureCount++;
+          totalFailureDays += item.daysToComplete;
+        }
+      });
+      return {
+        averageSuccessDays: totalSuccessDays / successCount,
+        averageFailureDays: totalFailureDays / failureCount
+      };
     }
   });
 };
