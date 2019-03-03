@@ -11,7 +11,7 @@ const LogModel = mongoose.model('Log');
  */
 exports.logRequest = (req) => {
   return new Promise((resolve, reject) => {
-    const new_log = new LogModel({method: req.method, endpoint: req.url, requestBody: req.body});
+    const new_log = new LogModel({date: new Date().toISOString(), method: req.method, endpoint: req.url, requestBody: req.body});
     new_log.save((err, entry) => {
       if (err) {
         reject(err);

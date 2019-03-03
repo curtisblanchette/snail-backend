@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
 const LogSchema = new Schema({
   time: {
     type: Date,
-    default: new Date()
+    default: new Date().toISOString()
   },
   method: {
     type: String
