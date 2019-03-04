@@ -2,6 +2,8 @@
 
 const interceptors = require('../middleware/interceptors');
 const controller = require('../controllers/result.controller');
+const validator = require('express-joi-validator');
+const resultsBody = require('../validation/resultsBody');
 
 module.exports = function (app) {
 
@@ -11,7 +13,7 @@ module.exports = function (app) {
   // Results Routes
   app.route('/results')
     .get(interceptors.callLogger, controller.getResults)
-    .post(interceptors.callLogger, controller.postResults);
+    .post(validator(resultsBody), interceptors.callLogger, controller.postResults);
 
   app.route('/results/aggregate')
     .get(controller.aggregateResults);
