@@ -5,7 +5,7 @@ const LogModel = mongoose.model('Log');
 
 
 /**
- * Logs each requst to MongoDB
+ * Logs each request to MongoDB
  * @param req - the request
  * @returns {Promise}
  */

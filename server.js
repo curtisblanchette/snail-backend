@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const ResultModel = require('./api/models/result.model'); // model must be loaded here
 const LogModel = require('./api/models/log.model');
 const bodyParser = require('body-parser');
-const resultRoutes = require('./api/routes/result.routes');
-const logRoutes = require('./api/routes/log.routes');
+const resultRoutes = require('./api/routes/results.routes');
+const logRoutes = require('./api/routes/logs.routes');
 
 // mongoose instance connection
 mongoose.Promise = global.Promise;
@@ -28,6 +28,13 @@ app.use((req, res, next) => {
 resultRoutes(app);
 logRoutes(app);
 
-app.listen(port);
+app.use((err, req, res, next) => {
+  if (err) {
+    return res.status(err.output.statusCode).json(err.output.payload);
+  }
+});
+
+module.exports = app.listen(port);
+
 
 console.log('Snail RESTful API server started on: ' + port);
